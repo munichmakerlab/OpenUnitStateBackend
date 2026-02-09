@@ -22,7 +22,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      DB_HOST: mariadb
+      DB_HOST: db
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
