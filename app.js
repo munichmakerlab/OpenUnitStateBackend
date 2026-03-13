@@ -93,9 +93,9 @@ function parseMessage(topic, message) {
 
     var meta = topic.replace(ROOT_TOPIC + "/", "").split("/")
 
-    var orgId = meta[0]
-    var chipId = meta[1]
-    var func = meta[2]
+    var orgId = '-1' // meta[0]
+    var chipId = meta[0]
+    var func = meta[1]
     var payload = message.toString()
 
     return {
@@ -142,10 +142,10 @@ async function pushUnitConfig(chipId) {
     var name = await getUnitName(chipId)
     var unitOrg = await getUnitOrg(chipId);
     if (unitOrg != null) {
-        console.log("Setting name on", chipId, "mqtt message:", ROOT_TOPIC + "/" + unitOrg + "/" + chipId + "/config_name", name)
-        mqtt_client.publish(ROOT_TOPIC + "/" + unitOrg + "/" + chipId + "/config_name", name)
-        console.log("Setting status on", chipId, "mqtt message:", ROOT_TOPIC + "/" + unitOrg + "/" + chipId + "/config_status", status)
-        mqtt_client.publish(ROOT_TOPIC + "/" + unitOrg + "/" + chipId + "/config_status", status.toString())
+        console.log("Setting name on", chipId, "mqtt message:", ROOT_TOPIC + "/" + chipId + "/config_name", name)
+        mqtt_client.publish(ROOT_TOPIC + "/" + chipId + "/config_name", name)
+        console.log("Setting status on", chipId, "mqtt message:", ROOT_TOPIC + "/" + chipId + "/config_status", status)
+        mqtt_client.publish(ROOT_TOPIC + "/" + chipId + "/config_status", status.toString())
     } else {
         console.log(chipId, "unitOrg is null")
     }
@@ -328,8 +328,8 @@ async function unlockUnit(chipId, unlockTime = 0) {
                 return;
             }
             unlockTime = unlockTime * 1000;
-            console.log("Unlocking", chipId, "mqtt message:", ROOT_TOPIC + "/" + unitOrg + "/" + chipId + "/unlocked_time", unlockTime)
-            mqtt_client.publish(ROOT_TOPIC + "/" + unitOrg + "/" + chipId + "/unlocked_time", unlockTime.toString())
+            console.log("Unlocking", chipId, "mqtt message:", ROOT_TOPIC + "/" + chipId + "/unlocked_time", unlockTime)
+            mqtt_client.publish(ROOT_TOPIC + "/" + chipId + "/unlocked_time", unlockTime.toString())
         } else {
             console.log("unlockUnit: Couldn't find org associated with chipId", chipId);
         }
@@ -341,8 +341,8 @@ async function showMessage(chipId, message) {
         var unitOrg = await getUnitOrg(chipId);
         console.log(unitOrg)
         if (unitOrg != null) {
-            console.log("Showing message", ROOT_TOPIC + "/" + unitOrg + "/" + chipId + "/quick_display_msg", message)
-            mqtt_client.publish(ROOT_TOPIC + "/" + unitOrg + "/" + chipId + "/quick_display_msg", message)
+            console.log("Showing message", ROOT_TOPIC + "/" + chipId + "/quick_display_msg", message)
+            mqtt_client.publish(ROOT_TOPIC + "/" + chipId + "/quick_display_msg", message)
         }
     });
 }
