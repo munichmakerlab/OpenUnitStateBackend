@@ -6,7 +6,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `cards`;
 CREATE TABLE `cards`  (
-  `cardId` varchar(8) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `cardId` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `userId` int(8) NOT NULL,
   `cardActive` int(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`cardId`) USING BTREE
