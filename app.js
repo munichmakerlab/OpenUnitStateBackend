@@ -123,6 +123,7 @@ async function onCardRead(chipId, cardId) {
     var authorized = await checkPermissions(userId, chipId)
     if (authorized) {
         unlockUnit(chipId);
+        setLastUnlock(cardId);
     } else {
         console.log("Card", cardId, "belonging to", userId, "not authorized for", chipId);
         showMessage(chipId, "CARD#: " + cardId);
@@ -232,6 +233,14 @@ async function getCardOwner(cardId) {
                 resolve(null);
             }
         });
+    });
+}
+
+function setLastUnlock(cardId) {
+    db.query('UPDATE cards SET lastUnlock = NOW() WHERE cardId = ?', [cardId], function (error, results, fields) {
+        if (error) {
+            console.error("setLastUnlock: failed for cardId", cardId, error.message);
+        }
     });
 }
 

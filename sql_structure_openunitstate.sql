@@ -9,6 +9,7 @@ CREATE TABLE `cards`  (
   `cardId` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `userId` int(8) NOT NULL,
   `cardActive` int(4) NOT NULL DEFAULT 1,
+  `lastUnlock` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`cardId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = Dynamic;
 
